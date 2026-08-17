@@ -7,6 +7,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\URL; // <-- Agregado
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +18,11 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
+        // Forzar HTTPS en entorno de producción (Railway)
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
         // Evita errores de longitud de índice en MySQL < 5.7.7
         Schema::defaultStringLength(191);
 

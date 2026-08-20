@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    @php $esAdmin = auth()->user()->rol === 'admin'; @endphp
+    @php $esSuperAdmin = auth()->user()->rol === 'superadmin'; @endphp
 
     {{-- Estado actual --}}
     <div class="form-card" style="max-width:980px;margin-bottom:18px">
@@ -95,7 +95,7 @@
                 </ul>
                 @if($actualPlan)
                     <button class="btn btn-light" disabled style="width:100%">Plan actual</button>
-                @elseif($esAdmin)
+                @elseif($esSuperAdmin)
                     <form method="POST" action="{{ route('suscripcion.cambiar') }}"
                           onsubmit="return confirm('¿Cambiar al plan {{ $plan->nombre }}?')">
                         @csrf
@@ -105,7 +105,7 @@
                         </button>
                     </form>
                 @else
-                    <button class="btn btn-light" disabled style="width:100%">Solo el administrador</button>
+                    <button class="btn btn-light" disabled style="width:100%">Solo el superadministrador</button>
                 @endif
             </div>
         @endforeach
